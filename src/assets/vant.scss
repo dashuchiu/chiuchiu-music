@@ -1,0 +1,16 @@
+
+
+:root:root{//定義vant全局配色
+  --van-primary-color:#ffffff;
+  --van-text-color:#ffffff;
+  --van-border-color:rgb(41 ,37 ,36);
+  --van-background-2:rgb(41 ,37 ,36);
+  //導航相關
+  --van-nav-bar-background:rgb(41 ,37 ,36);
+  --van-tabbar-item-icon-size:26px;
+  //按鈕
+  --van-button-primary-background:#f97316;
+  --van-button-primary-border-color:#f97316;
+}
+
+$color: red  //定义单独样式  -> 页面中可以直接去使用  $color
