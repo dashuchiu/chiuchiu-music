@@ -1,17 +1,26 @@
 <script setup>
-import MusicPopUp from '@/components/musicPlayer/MusicPopup.vue'
+import MusicPopup from '@/components/CmMusicPlayer/MusicPopup.vue'
 import { ref } from 'vue'
+const value = ref(50)
 const isPlay = ref(true)
-const show = ref(true)
+const show = ref(false)
 const showPopup = () => {
   show.value = true
+}
+const onPlay = () => {
+  isPlay.value = !isPlay.value
 }
 </script>
 
 <template>
   <div class="relative">
     <div @click="showPopup" class="fixed bottom-12 bg-slate-200">
-      <van-progress :percentage="50" color="#f97316" :show-pivot="false" />
+      <van-slider
+        v-model="value"
+        active-color="#f97316"
+        button-size="0px"
+        :readonly="true"
+      />
       <div class="h-16">
         <div class="flex h-full justify-between items-center">
           <div class="flex">
@@ -29,14 +38,20 @@ const showPopup = () => {
               <div class="artist text-sm text-stone-500">賓士貓</div>
             </div>
           </div>
-
           <div>
             <van-icon
+              @click.stop="onPlay"
               v-if="isPlay"
               class="mx-4"
               name="play-circle-o"
               size="40"
-            /><van-icon v-else class="mx-4" name="pause-circle-o" size="40" />
+            /><van-icon
+              @click.stop="onPlay"
+              v-else
+              class="mx-4"
+              name="pause-circle-o"
+              size="40"
+            />
           </div>
         </div>
       </div>
@@ -47,7 +62,7 @@ const showPopup = () => {
       round
       closeable
       :style="{ padding: '64px' }"
-      ><MusicPopUp></MusicPopUp
+      ><MusicPopup></MusicPopup
     ></van-popup>
   </div>
 </template>
