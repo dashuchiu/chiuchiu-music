@@ -12,7 +12,7 @@ defineProps({
     type: String,
     default: ''
   },
-  onClick: {
+  clickable: {
     type: Boolean,
     default: true
   },
@@ -25,11 +25,11 @@ defineProps({
 
 <template>
   <van-nav-bar
-    class="shadow-md"
     :fixed="true"
+    class="shadow-md"
     :left-arrow="leftArrow"
     :left-text="leftText"
-    :clickable="onClick"
+    :clickable="clickable"
     :title="forTitle"
   >
     <template #right>

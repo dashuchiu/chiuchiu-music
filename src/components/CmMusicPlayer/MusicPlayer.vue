@@ -3,24 +3,32 @@ import MusicPopup from '@/components/CmMusicPlayer/MusicPopup.vue'
 import { ref } from 'vue'
 const value = ref(50)
 const isPlay = ref(true)
-const show = ref(false)
-const showPopup = () => {
-  show.value = true
+const showPopup = ref(false)
+const setShowPopup = (bool) => {
+  showPopup.value = bool
 }
-const onPlay = () => {
+const handlePlay = () => {
   isPlay.value = !isPlay.value
 }
+defineProps({
+  isShow: {
+    type: Boolean,
+    default: false
+  }
+})
 </script>
 
 <template>
-  <div class="relative">
-    <div @click="showPopup" class="fixed bottom-12 bg-slate-200">
+  <div class="relative" v-show="isShow">
+    <div @click="setShowPopup(true)" class="fixed bottom-12 bg-slate-200">
+      <!-- 進度條 -->
       <van-slider
         v-model="value"
         active-color="#f97316"
         button-size="0px"
         :readonly="true"
       />
+      <!-- 音樂資訊 -->
       <div class="h-16">
         <div class="flex h-full justify-between items-center">
           <div class="flex">
@@ -38,32 +46,33 @@ const onPlay = () => {
               <div class="artist text-sm text-stone-500">賓士貓</div>
             </div>
           </div>
-          <div>
-            <van-icon
-              @click.stop="onPlay"
-              v-if="isPlay"
-              class="mx-4"
-              name="play-circle-o"
-              size="40"
-            /><van-icon
-              @click.stop="onPlay"
-              v-else
-              class="mx-4"
-              name="pause-circle-o"
-              size="40"
-            />
-          </div>
+          <!-- 播放/暫停 -->
+          <van-icon
+            @click.stop="handlePlay"
+            v-show="isPlay"
+            class="mx-4"
+            name="play-circle-o"
+            size="40"
+          /><van-icon
+            @click.stop="handlePlay"
+            v-show="!isPlay"
+            class="mx-4"
+            name="pause-circle-o"
+            size="40"
+          />
         </div>
       </div>
     </div>
     <van-popup
-      v-model:show="show"
+      v-model:show="showPopup"
       position="bottom"
       round
       closeable
+      close-icon="close"
       :style="{ padding: '64px' }"
-      ><MusicPopup></MusicPopup
-    ></van-popup>
+    >
+      <MusicPopup></MusicPopup>
+    </van-popup>
   </div>
 </template>
 <style lang="scss" scoped>

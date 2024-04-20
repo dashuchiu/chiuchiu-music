@@ -2,8 +2,17 @@
 import { ref } from 'vue'
 const value = ref(50)
 const isPlay = ref(true)
-const onPlay = () => {
+const isShuffle = ref(true)
+const handleShuffle = () => {
+  isShuffle.value = !isShuffle.value
+}
+const handlePlay = () => {
   isPlay.value = !isPlay.value
+}
+const currentIndex = ref(0)
+
+const changeIcon = () => {
+  currentIndex.value = (currentIndex.value + 1) % 3
 }
 </script>
 <template>
@@ -31,22 +40,64 @@ const onPlay = () => {
       <div>3:23</div>
     </div>
     <!-- 控制器 -->
+    <!-- 隨機播放開關 -->
     <div class="controller flex justify-between items-center">
-      <van-icon name="replay" size="20" />
+      <span
+        @click="handleShuffle"
+        v-show="isShuffle"
+        class="material-symbols-outlined"
+      >
+        shuffle
+      </span>
+      <span
+        @click="handleShuffle"
+        v-show="!isShuffle"
+        class="material-symbols-outlined text-orange-400"
+      >
+        shuffle
+      </span>
+      <!-- 前一首 -->
       <span class="iconArrow material-symbols-outlined"> skip_previous </span>
-
-      <van-icon @click="onPlay" v-if="isPlay" name="play-circle" size="72" />
-      <van-icon @click="onPlay" v-else name="pause-circle" size="72" />
-
+      <!-- 播放/暫停 -->
+      <van-icon
+        @click="handlePlay"
+        v-show="isPlay"
+        name="play-circle"
+        size="72"
+      />
+      <van-icon
+        @click="handlePlay"
+        v-show="!isPlay"
+        name="pause-circle"
+        size="72"
+      />
+      <!-- 下一首 -->
       <span class="iconArrow material-symbols-outlined"> skip_next </span>
-      <span class="material-symbols-outlined"> lyrics </span>
+      <!-- 全部循環/單曲循環開關 -->
+      <div @click="changeIcon">
+        <span class="material-symbols-outlined" v-show="currentIndex === 0">
+          repeat
+        </span>
+        <span
+          class="material-symbols-outlined text-orange-400"
+          v-show="currentIndex === 1"
+        >
+          repeat
+        </span>
+        <span
+          class="material-symbols-outlined text-orange-400"
+          v-show="currentIndex === 2"
+        >
+          repeat_one
+        </span>
+      </div>
     </div>
     <!-- 歌詞 -->
     <div
       class="w-full mt-4 -mb-10 px-4 pt-2 grow rounded-md bg-stone-600 relative overflow-hidden"
       relative
     >
-      <div class="absolute tracking-wide">
+      <div class="absolute tracking-wide text-stone-800">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
         ratione aliquam magni aperiam ad! Recusandae quasi aliquid itaque
         voluptatibus impedit quisquam perferendis exercitationem magni magnam

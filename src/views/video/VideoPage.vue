@@ -1,15 +1,13 @@
 <script setup>
-import CmHeader from '@/components/CmHeader/index.vue'
+import CmLayout from '@/components/CmLayout/index.vue'
 </script>
 <template>
-  <cm-header :is-search="true" />
-
-  <div class="text-9xl">影片</div>
-  <div class="text-9xl">影片</div>
-  <div class="text-9xl">影片</div>
-  <div class="text-9xl">影片</div>
-  <div class="text-9xl">影片</div>
-  <div class="text-9xl">影片</div>
-  <div class="text-9xl">影片</div>
+  <cm-layout :is-search="true">
+    <div class="text-9xl">影片</div>
+    <div class="text-9xl">影片</div>
+    <div class="text-9xl">影片</div>
+    <div class="text-9xl">影片</div>
+    <div class="text-9xl">影片</div>
+  </cm-layout>
 </template>
 <style lang="scss" scoped></style>

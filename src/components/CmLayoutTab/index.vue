@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+
 const active = ref(0)
 const tabs = ref([
   {
@@ -25,7 +26,6 @@ const tabs = ref([
 ])
 </script>
 <template>
-  <!-- <router-view /> -->
   <van-tabbar v-model="active" route active-color="#f97316">
     <van-tabbar-item
       replace
