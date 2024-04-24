@@ -1,19 +1,23 @@
 <script setup>
-import { ref } from 'vue'
-const value = ref(50)
-const isPlay = ref(true)
-const isShuffle = ref(true)
-const handleShuffle = () => {
-  isShuffle.value = !isShuffle.value
-}
-const handlePlay = () => {
-  isPlay.value = !isPlay.value
-}
-const currentIndex = ref(0)
-
-const changeIcon = () => {
-  currentIndex.value = (currentIndex.value + 1) % 3
-}
+import { inject, computed } from 'vue'
+import { formatTime } from '@/utils/timeFormats'
+const {
+  isPlaying,
+  play,
+  pause,
+  currentTrackSong,
+  currentTime,
+  duration,
+  changePlayMode,
+  changeCurrentTime,
+  nextTrack,
+  prevTrack,
+  playMode,
+  PlayModes
+} = inject('musicPlayer')
+const isPlay = computed(() => isPlaying.value)
+const isRandomMode = computed(() => playMode.value === PlayModes.RANDOM)
+const isLoopMode = computed(() => playMode.value === PlayModes.LOOP)
 </script>
 <template>
   <div class="flex flex-col h-full items-center">
@@ -22,71 +26,67 @@ const changeIcon = () => {
       radius="6"
       fit="cover"
       position="center"
-      src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+      :src="currentTrackSong?.cover"
     />
 
-    <div class="title">貓貓奏鳴曲</div>
-    <div class="artist text-sm text-stone-500">賓士貓</div>
+    <div class="title">{{ currentTrackSong?.title }}</div>
+    <div class="artist text-sm text-stone-500">
+      {{ currentTrackSong?.singer }}
+    </div>
     <!-- 進度條 -->
     <div class="progressList w-full flex justify-between items-center">
-      <div>0:22</div>
+      <div>{{ formatTime(currentTime) }}</div>
       <van-slider
         class="mx-4 my-8"
-        v-model="value"
+        :max="duration"
+        v-model="currentTime"
         active-color="#f97316"
         button-size="16px"
+        @change="changeCurrentTime"
       />
-
-      <div>3:23</div>
+      <div>{{ formatTime(duration) }}</div>
     </div>
     <!-- 控制器 -->
     <!-- 隨機播放開關 -->
     <div class="controller flex justify-between items-center">
       <span
-        @click="handleShuffle"
-        v-show="isShuffle"
+        @click="changePlayMode(PlayModes.RANDOM)"
+        v-show="!isRandomMode"
         class="material-symbols-outlined"
       >
         shuffle
       </span>
       <span
-        @click="handleShuffle"
-        v-show="!isShuffle"
+        @click="changePlayMode(PlayModes.SEQUENCE)"
+        v-show="isRandomMode"
         class="material-symbols-outlined text-orange-400"
       >
         shuffle
       </span>
       <!-- 前一首 -->
-      <span class="iconArrow material-symbols-outlined"> skip_previous </span>
+      <span @click="prevTrack" class="iconArrow material-symbols-outlined">
+        skip_previous
+      </span>
       <!-- 播放/暫停 -->
-      <van-icon
-        @click="handlePlay"
-        v-show="isPlay"
-        name="play-circle"
-        size="72"
-      />
-      <van-icon
-        @click="handlePlay"
-        v-show="!isPlay"
-        name="pause-circle"
-        size="72"
-      />
+      <van-icon @click="play" v-show="!isPlay" name="play-circle" size="72" />
+      <van-icon @click="pause" v-show="isPlay" name="pause-circle" size="72" />
       <!-- 下一首 -->
-      <span class="iconArrow material-symbols-outlined"> skip_next </span>
+      <span @click="nextTrack" class="iconArrow material-symbols-outlined">
+        skip_next
+      </span>
       <!-- 全部循環/單曲循環開關 -->
       <div @click="changeIcon">
-        <span class="material-symbols-outlined" v-show="currentIndex === 0">
-          repeat
-        </span>
         <span
-          class="material-symbols-outlined text-orange-400"
-          v-show="currentIndex === 1"
+          class="material-symbols-outlined"
+          @click="changePlayMode(PlayModes.LOOP)"
+          v-show="!isLoopMode"
         >
           repeat
         </span>
         <span
+          @click="changePlayMode(PlayModes.SEQUENCE)"
           class="material-symbols-outlined text-orange-400"
-          v-show="currentIndex === 2"
+          v-show="isLoopMode"
         >
           repeat_one
         </span>

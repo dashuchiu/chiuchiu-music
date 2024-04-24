@@ -1,17 +1,20 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
 import { removeToken } from '@/utils/localStorage'
+import { defineExpose } from 'vue'
 
 const search = () => {
   console.log(1)
 }
+
 const logout = () => {
   removeToken()
 }
+defineExpose({ logout })
 // TODO: token放store => 在登出的時候，會進到登入頁面
 </script>
 <template>
-  <cm-layout :leftText="'北投阿桑，今天想聽什麼'" :clickable="false">
+  <cm-layout :leftText="'音痴草，今天想聽什麼'" :clickable="false">
     <template #headerRight>
       <van-icon class="px-4" name="search" size="24" @click="search" />
       <van-button
@@ -50,6 +53,61 @@ const logout = () => {
               src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
             />
             <p class="=text-xs leading-8">社畜掙扎歌單</p>
+          </van-grid-item>
+          <van-grid-item>
+            <van-image
+              width="8rem"
+              height="6rem"
+              fit="cover"
+              position="center"
+              radius="6"
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
+            />
+            <p class="=text-xs leading-8">社畜掙扎歌單</p>
+          </van-grid-item>
+          <van-grid-item>
+            <van-image
+              width="8rem"
+              height="6rem"
+              fit="cover"
+              position="center"
+              radius="6"
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
+            />
+            <p class="=text-xs leading-8">社畜掙扎歌單</p>
+          </van-grid-item>
+          <van-grid-item>
+            <van-image
+              width="8rem"
+              height="6rem"
+              fit="cover"
+              position="center"
+              radius="6"
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
+            />
+            <p class="=text-xs leading-8">放空歌單</p>
+          </van-grid-item>
+          <van-grid-item>
+            <van-image
+              width="8rem"
+              height="6rem"
+              fit="cover"
+              position="center"
+              radius="6"
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
+            />
+            <p class="=text-xs leading-8">放空歌單</p>
+          </van-grid-item>
+          <van-grid-item>
+            <van-image
+              width="8rem"
+              height="6rem"
+              fit="cover"
+              position="center"
+              radius="6"
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
+            />
+            <p class="=text-xs leading-8">放空歌單</p>
           </van-grid-item>
         </van-grid>
       </div>

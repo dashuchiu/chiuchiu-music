@@ -1,14 +1,22 @@
 <script setup>
-import MusicPopup from '@/components/CmMusicPlayer/MusicPopup.vue'
-import { ref } from 'vue'
-const value = ref(50)
-const isPlay = ref(true)
+import MusicPopup from './MusicPopup.vue'
+import { computed, ref, inject } from 'vue'
+
+const {
+  isPlaying,
+  play,
+  pause,
+  currentTrackSong,
+  duration,
+  currentTime,
+  changeCurrentTime
+} = inject('musicPlayer')
+
+// const value = ref(50)
+const isPlay = computed(() => isPlaying.value)
 const showPopup = ref(false)
 const setShowPopup = (bool) => {
   showPopup.value = bool
-}
-const handlePlay = () => {
-  isPlay.value = !isPlay.value
 }
 defineProps({
   isShow: {
@@ -23,10 +31,12 @@ defineProps({
     <div @click="setShowPopup(true)" class="fixed bottom-12 bg-slate-200">
       <!-- 進度條 -->
       <van-slider
-        v-model="value"
+        v-model="currentTime"
+        :max="duration"
         active-color="#f97316"
         button-size="0px"
         :readonly="true"
+        @change="changeCurrentTime"
       />
       <!-- 音樂資訊 -->
       <div class="h-16">
@@ -39,23 +49,25 @@ defineProps({
               radius="6"
               fit="cover"
               position="center"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              :src="currentTrackSong?.cover"
             />
             <div class="songInfo flex flex-col">
-              <div class="title">貓貓奏鳴曲</div>
-              <div class="artist text-sm text-stone-500">賓士貓</div>
+              <div class="title">{{ currentTrackSong?.title }}</div>
+              <div class="artist text-sm text-stone-500">
+                {{ currentTrackSong?.singer }}
+              </div>
             </div>
           </div>
           <!-- 播放/暫停 -->
           <van-icon
-            @click.stop="handlePlay"
-            v-show="isPlay"
+            @click.stop="play"
+            v-show="!isPlay"
             class="mx-4"
             name="play-circle-o"
             size="40"
           /><van-icon
-            @click.stop="handlePlay"
-            v-show="!isPlay"
+            @click.stop="pause"
+            v-show="isPlay"
             class="mx-4"
             name="pause-circle-o"
             size="40"
@@ -71,7 +83,7 @@ defineProps({
       close-icon="close"
       :style="{ padding: '64px' }"
     >
-      <MusicPopup></MusicPopup>
+      <MusicPopup />
     </van-popup>
   </div>
 </template>

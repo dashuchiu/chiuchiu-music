@@ -1,35 +1,18 @@
-# chiuchiu-music
+# chiuchiu-musicplayer
 
-This template should help get you started developing with Vue 3 in Vite.
+DEMO:[chiuchiu-musicplayer](https://dashuchiu.github.io/demo2/#/main)
+登入測試手機18681547948
 
-## Recommended IDE Setup
+使用vue3、樣式框架為vant4開發的音樂播放器。
+    >前端框架： Vue3 + Vue router + pinia + axios。
+    >前端UI框架及樣式: Vant4/SCSS/TailwindCSS。
+    >打包工具: Vite。
+    
+## 音樂播放器
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+功能:
+    >播放/暫停。
+    >前一首/下一首。
+    >隨機播放/單曲循環/「隨歌曲進度條播放」。
+    >動態歌詞(開發中)。
+![img](./src/assets/img/readme_pic01.png)
