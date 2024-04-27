@@ -21,6 +21,7 @@ defineProps({
     default: ''
   }
 })
+const onClickLeft = () => history.back()
 </script>
 
 <template>
@@ -31,6 +32,7 @@ defineProps({
     :left-text="leftText"
     :clickable="clickable"
     :title="forTitle"
+    @click-left="onClickLeft"
   >
     <template #right>
       <van-icon v-if="isSearch" name="search" size="24" />

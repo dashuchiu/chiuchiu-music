@@ -16,6 +16,7 @@ const active = ref(0)
           <van-cell
             @click="router.push(`/artist/${item.id}`)"
             v-for="item in artistsList"
+            :key="item.id"
             :title="item.name"
           /> </van-index-bar
       ></van-tab>

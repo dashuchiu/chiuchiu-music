@@ -1,8 +1,11 @@
 import { httpGet } from '../server'
 
 export const musicApi = {
+  //获取每日推荐歌单
   recommendResource: () => httpGet('/recommend/resource'),
   urlV1: (id) => httpGet(`song/url/v1?id=${id}&level=exhigh`),
+  // 获取歌单所有歌曲
+  songList: (id) => httpGet('/playlist/track/all', { id }),
   // 获取歌手详情
   artistDetail: (id) => httpGet('/artist/detail', { id }),
   // 获取歌手描述

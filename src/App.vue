@@ -1,6 +1,5 @@
 <script setup>
 import CmHeader from '@/components/CmHeader/index.vue'
-import { musicApi } from '@/api/module/music'
 import { ref, provide } from 'vue'
 import 'vant/es/toast/style'
 import { showSuccessToast } from 'vant'
@@ -102,12 +101,6 @@ const rules = {
     }
   ]
 }
-const getMusic = async () => {
-  const data = await musicApi.recommendResource()
-  console.log(data)
-}
-
-getMusic()
 </script>
 <template>
   <!-- 背景底色 -->

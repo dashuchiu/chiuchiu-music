@@ -1,5 +1,6 @@
 <script setup>
 import MusicPopup from './MusicPopup.vue'
+import MusicListPopup from './MusicListPopup.vue'
 import { computed, ref, inject } from 'vue'
 
 const {
@@ -24,6 +25,10 @@ defineProps({
     default: false
   }
 })
+const showListPopup = ref(false)
+const setShowListPopup = (bool) => {
+  showListPopup.value = bool
+}
 </script>
 
 <template>
@@ -58,20 +63,37 @@ defineProps({
               </div>
             </div>
           </div>
-          <!-- 播放/暫停 -->
-          <van-icon
-            @click.stop="play"
-            v-show="!isPlay"
-            class="mx-4"
-            name="play-circle-o"
-            size="40"
-          /><van-icon
-            @click.stop="pause"
-            v-show="isPlay"
-            class="mx-4"
-            name="pause-circle-o"
-            size="40"
-          />
+          <!-- 播放列表/播放/暫停 -->
+          <div class="flex">
+            <van-icon
+              @click.stop="setShowListPopup(true)"
+              name="bars"
+              size="40"
+            />
+            <van-popup
+              v-model:show="showListPopup"
+              position="bottom"
+              round
+              closeable
+              close-icon="close"
+              :style="{ padding: '64px' }"
+            >
+              <MusicListPopup />
+            </van-popup>
+            <van-icon
+              @click.stop="play"
+              v-show="!isPlay"
+              class="mx-4"
+              name="play-circle-o"
+              size="40"
+            /><van-icon
+              @click.stop="pause"
+              v-show="isPlay"
+              class="mx-4"
+              name="pause-circle-o"
+              size="40"
+            />
+          </div>
         </div>
       </div>
     </div>

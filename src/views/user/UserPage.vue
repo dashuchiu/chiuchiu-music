@@ -12,7 +12,7 @@ const actions = [{ text: '中文' }, { text: '英文' }]
 </script>
 <template>
   <cm-layout :is-search="true">
-    <div class="flex justify-between items-center mt-4">
+    <div class="flex justify-between items-center">
       <!-- 會員資訊 -->
       <div class="flex items-center">
         <van-image

@@ -1,7 +1,8 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
 import { removeToken } from '@/utils/localStorage'
-import { defineExpose } from 'vue'
+import { defineExpose, ref } from 'vue'
+import { musicApi } from '@/api/module/music'
 
 const search = () => {
   console.log(1)
@@ -12,6 +13,14 @@ const logout = () => {
 }
 defineExpose({ logout })
 // TODO: token放store => 在登出的時候，會進到登入頁面
+const musicList = ref([])
+const getMusic = async () => {
+  const data = await musicApi.recommendResource()
+  musicList.value = data.recommend
+  console.log(musicList)
+}
+getMusic()
+console.log(musicList)
 </script>
 <template>
   <cm-layout :leftText="'音痴草，今天想聽什麼'" :clickable="false">
@@ -31,83 +40,19 @@ defineExpose({ logout })
     <!-- 渲染8列歌單可拖曳 -->
     <div class="dragList overflow-x-scroll">
       <div class="drapContainer">
-        <van-grid :column-num="8">
-          <van-grid-item>
-            <van-image
-              width="8rem"
-              height="6rem"
-              fit="cover"
-              position="center"
-              radius="6"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-            />
-            <p class="=text-xs leading-8">社畜掙扎歌單</p>
-          </van-grid-item>
-          <van-grid-item>
-            <van-image
-              width="8rem"
-              height="6rem"
-              fit="cover"
-              position="center"
-              radius="6"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-            />
-            <p class="=text-xs leading-8">社畜掙扎歌單</p>
-          </van-grid-item>
-          <van-grid-item>
-            <van-image
-              width="8rem"
-              height="6rem"
-              fit="cover"
-              position="center"
-              radius="6"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-            />
-            <p class="=text-xs leading-8">社畜掙扎歌單</p>
-          </van-grid-item>
-          <van-grid-item>
-            <van-image
-              width="8rem"
-              height="6rem"
-              fit="cover"
-              position="center"
-              radius="6"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-            />
-            <p class="=text-xs leading-8">社畜掙扎歌單</p>
-          </van-grid-item>
-          <van-grid-item>
-            <van-image
-              width="8rem"
-              height="6rem"
-              fit="cover"
-              position="center"
-              radius="6"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-            />
-            <p class="=text-xs leading-8">放空歌單</p>
-          </van-grid-item>
-          <van-grid-item>
-            <van-image
-              width="8rem"
-              height="6rem"
-              fit="cover"
-              position="center"
-              radius="6"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-            />
-            <p class="=text-xs leading-8">放空歌單</p>
-          </van-grid-item>
-          <van-grid-item>
-            <van-image
-              width="8rem"
-              height="6rem"
-              fit="cover"
-              position="center"
-              radius="6"
-              src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-            />
-            <p class="=text-xs leading-8">放空歌單</p>
+        <van-grid :column-num="6">
+          <van-grid-item v-for="item in musicList" :key="item.id">
+            <div class="h-40 w-28">
+              <van-image
+                width="8rem"
+                height="6rem"
+                fit="cover"
+                position="center"
+                radius="6"
+                :src="item.picUrl"
+              />
+              <p class="text-xs leading-8">{{ item.name }}</p>
+            </div>
           </van-grid-item>
         </van-grid>
       </div>
@@ -119,6 +64,6 @@ defineExpose({ logout })
   display: none;
 }
 .drapContainer {
-  width: 300%;
+  width: 250%;
 }
 </style>

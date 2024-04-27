@@ -26,7 +26,7 @@ defineProps({
   }
 })
 const scrollableHeight = ref(0)
-const isShow = ref(false)
+// const isShow = ref(false)
 onMounted(() => {
   const scrollableHeightValue = window.innerHeight - 50
   scrollableHeight.value = scrollableHeightValue
@@ -47,7 +47,7 @@ onMounted(() => {
   </cm-header>
   <main
     id="scroll-wrapper"
-    class="px-6 pt-12 flex flex-col overflow-x-hidden overflow-y-scroll"
+    class="px-6 pt-14 flex flex-col overflow-x-hidden overflow-y-scroll"
     :style="{ height: `${scrollableHeight}px` }"
   >
     <slot />
