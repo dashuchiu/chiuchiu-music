@@ -1,4 +1,6 @@
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
 defineProps({
   leftArrow: {
     type: Boolean,
@@ -27,7 +29,7 @@ const onClickLeft = () => history.back()
 <template>
   <van-nav-bar
     :fixed="true"
-    class="shadow-md"
+    class="shadow-md z-10"
     :left-arrow="leftArrow"
     :left-text="leftText"
     :clickable="clickable"
@@ -35,7 +37,12 @@ const onClickLeft = () => history.back()
     @click-left="onClickLeft"
   >
     <template #right>
-      <van-icon v-if="isSearch" name="search" size="24" />
+      <van-icon
+        v-if="isSearch"
+        name="search"
+        @click="router.push('/search')"
+        size="24"
+      />
       <slot name="right" />
     </template>
   </van-nav-bar>

@@ -12,8 +12,16 @@ const router = createRouter({
       component: () => import('@/views/main/MainPage.vue')
     },
     {
+      path: '/main/recommendlist/:id',
+      component: () => import('@/views/main/RecommendSongList.vue')
+    },
+    {
       path: '/video',
       component: () => import('@/views/video/VideoPage.vue')
+    },
+    {
+      path: '/video/:id',
+      component: () => import('@/views/video/VideoDetail.vue')
     },
     {
       path: '/category',
@@ -30,6 +38,11 @@ const router = createRouter({
     {
       path: '/songlist/:id',
       component: () => import('@/views/songlist/SongList.vue')
+    },
+
+    {
+      path: '/search',
+      component: () => import('@/views/search/index.vue')
     }
   ]
 })

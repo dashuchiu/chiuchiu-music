@@ -1,19 +1,18 @@
 <script setup>
 import MusicPopup from './MusicPopup.vue'
-import MusicListPopup from './MusicListPopup.vue'
 import { computed, ref, inject } from 'vue'
-
+import { useMusicStore } from '@/stores'
+const musicStore = useMusicStore()
 const {
+  changeCurrentTime,
+  duration,
+  currentTime,
   isPlaying,
   play,
   pause,
-  currentTrackSong,
-  duration,
-  currentTime,
-  changeCurrentTime
+  currentTrackSong
 } = inject('musicPlayer')
 
-// const value = ref(50)
 const isPlay = computed(() => isPlaying.value)
 const showPopup = ref(false)
 const setShowPopup = (bool) => {
@@ -25,6 +24,12 @@ defineProps({
     default: false
   }
 })
+//關閉播放器
+const isMusicPlayerShow = () => {
+  musicStore.setIsMusicPlayerShow(false)
+  pause()
+}
+//打開播放列表
 const showListPopup = ref(false)
 const setShowListPopup = (bool) => {
   showListPopup.value = bool
@@ -47,8 +52,14 @@ const setShowListPopup = (bool) => {
       <div class="h-16">
         <div class="flex h-full justify-between items-center">
           <div class="flex">
+            <van-icon
+              @click.stop="isMusicPlayerShow(false)"
+              class="self-center text-stone-500"
+              name="close"
+              size="18"
+            />
             <van-image
-              class="mx-4"
+              class="mx-2"
               width="3rem"
               height="3rem"
               radius="6"
@@ -56,9 +67,9 @@ const setShowListPopup = (bool) => {
               position="center"
               :src="currentTrackSong?.cover"
             />
-            <div class="songInfo flex flex-col">
+            <div class="songInfo flex flex-col text-xs">
               <div class="title">{{ currentTrackSong?.title }}</div>
-              <div class="artist text-sm text-stone-500">
+              <div class="artist text-stone-500">
                 {{ currentTrackSong?.singer }}
               </div>
             </div>
@@ -68,7 +79,7 @@ const setShowListPopup = (bool) => {
             <van-icon
               @click.stop="setShowListPopup(true)"
               name="bars"
-              size="40"
+              size="32"
             />
             <van-popup
               v-model:show="showListPopup"
@@ -76,22 +87,22 @@ const setShowListPopup = (bool) => {
               round
               closeable
               close-icon="close"
-              :style="{ padding: '64px' }"
+              class="p-6 py-14"
             >
               <MusicListPopup />
             </van-popup>
             <van-icon
               @click.stop="play"
               v-show="!isPlay"
-              class="mx-4"
+              class="mx-2"
               name="play-circle-o"
-              size="40"
+              size="32"
             /><van-icon
               @click.stop="pause"
               v-show="isPlay"
-              class="mx-4"
+              class="mx-2"
               name="pause-circle-o"
-              size="40"
+              size="32"
             />
           </div>
         </div>

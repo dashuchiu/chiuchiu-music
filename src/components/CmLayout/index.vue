@@ -23,10 +23,14 @@ defineProps({
   forTitle: {
     type: String,
     default: ''
+  },
+  isShow: {
+    type: Boolean,
+    default: false
   }
 })
 const scrollableHeight = ref(0)
-// const isShow = ref(false)
+
 onMounted(() => {
   const scrollableHeightValue = window.innerHeight - 50
   scrollableHeight.value = scrollableHeightValue
@@ -53,7 +57,7 @@ onMounted(() => {
     <slot />
   </main>
   <footer id="footer">
-    <MusicPlayer :is-show="true" />
+    <MusicPlayer :is-show="isShow" />
     <cm-layout-tab></cm-layout-tab>
   </footer>
 </template>

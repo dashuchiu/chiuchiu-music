@@ -1,13 +1,21 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
 import { ref, reactive, onMounted, inject, computed } from 'vue'
-// import { useRoute } from 'vue-router'
 import { musicApi } from '@/api/module/music'
 import { useMusicStore } from '@/stores'
+import { useRoute } from 'vue-router'
+const routeId = useRoute().params.id
 const { addTrackAndPlay } = inject('musicPlayer')
-// const route = useRoute()
-// const id = ref(route.params.id)
 const musicStore = useMusicStore()
+
+const recommendListAll = ref([])
+const getRecommendMusicListAll = async () => {
+  const data = await musicApi.playlistAll(routeId)
+  recommendListAll.value = data.songs
+  // console.log(data)
+}
+getRecommendMusicListAll()
+
 const state = reactive({
   artistsDetail: {
     artistAlbum: [],
@@ -64,9 +72,9 @@ onMounted(() => {
       <p class="absolute bottom-5 left-5 text-3xl">{{ artistInfo.name }}</p>
     </div>
 
-    <p class="mt-4">熱門歌曲</p>
+    <p class="mt-4">推薦</p>
     <div
-      v-for="item in hotSongs"
+      v-for="item in recommendListAll"
       :key="item.id"
       class="my-2 flex justify-between items-center"
       @click="addMusic(item)"
@@ -78,9 +86,12 @@ onMounted(() => {
           height="4rem"
           fit="cover"
           position="center"
-          :src="item.al.picUrl + '?param=100y100'"
+          :src="item.al.picUrl"
         />
-        <p class="mx-4">{{ item.name }}</p>
+        <div class="flex flex-col mx-4 w-48">
+          <p class="">{{ item.name }}</p>
+          <p class="text-sm text-stone-500">{{ item.ar[0].name }}</p>
+        </div>
       </div>
 
       <van-icon name="plus" />

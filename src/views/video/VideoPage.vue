@@ -1,18 +1,35 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
+import { musicApi } from '@/api/module/music'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+const router = useRouter()
+const mvList = ref([])
+const getMV = async () => {
+  const { data: data } = await musicApi.newMV()
+  mvList.value = data
+  console.log(mvList)
+}
+getMV()
 </script>
 <template>
   <cm-layout :is-search="true">
-    <div class="mv-container">
-      <video
-        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
-        controls
-        autoplay
-        muted
-        class="rounded-md"
-      ></video>
+    <div
+      @click="router.push(`/video/${item.id}`)"
+      v-for="item in mvList"
+      :key="item.id"
+      class="mv-container"
+    >
+      <van-image
+        radius="6"
+        class="w-full"
+        height="10rem"
+        fit="cover"
+        position="center"
+        :src="item.cover"
+      />
+      <p class="mb-4">{{ item.name }}</p>
     </div>
-    <p class="my-2">The first Blender Open Movie from 2006</p>
   </cm-layout>
 </template>
 <style lang="scss" scoped>

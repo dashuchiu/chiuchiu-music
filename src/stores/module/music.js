@@ -6,11 +6,12 @@ export const useMusicStore = defineStore(
   () => {
     const count = ref(0)
     const currentIndex = ref(0)
+    const isMusicPlayerShow = ref(false)
     const trackList = ref([
       {
         id: '27591651',
         title: 'Intro AE 86',
-        singer: '陳光榮',
+        singer: '陈光荣',
         album: '頭文字[イニシャル]D THE MOVIE SOUND TUNE',
         cover:
           'http://p4.music.126.net/9KeyafHLjadqSQTRS_tN5Q==/5741649720318487.jpg',
@@ -35,10 +36,23 @@ export const useMusicStore = defineStore(
     const setCurrentIndex = (index) => {
       currentIndex.value = index
     }
+    const addTrackAndPlay = (param) => {
+      if (Array.isArray(param)) {
+        trackList.value = [...trackList.value, ...param]
+      } else {
+        trackList.value.push(param)
+      }
+    }
+    const setIsMusicPlayerShow = (bool) => {
+      isMusicPlayerShow.value = bool
+    }
     return {
+      isMusicPlayerShow,
       count,
       currentIndex,
       trackList,
+      setIsMusicPlayerShow,
+      addTrackAndPlay,
       setCurrentIndex
     }
   },

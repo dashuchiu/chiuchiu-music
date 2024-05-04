@@ -1,44 +1,14 @@
 <script setup>
 import CmHeader from '@/components/CmHeader/index.vue'
+// import { musicApi } from '@/api/module/music'
 import { ref, provide } from 'vue'
 import 'vant/es/toast/style'
 import { showSuccessToast } from 'vant'
 import { userApi } from '@/api/module/user'
 import { setToken, getToken } from '@/utils/localStorage'
 import { useMusicPlayer } from '@/hooks/useMusicPlayer'
-const {
-  isPlaying, // 当前是否在播放
-  currentTrackIndex, // 当前播放的曲目索引
-  currentTime, // 当前播放时间
-  duration, // 音乐总时长
-  play, // 控制播放的函数
-  pause, // 控制暂停的函数
-  nextTrack, // 播放下一首的函数
-  prevTrack, // 播放上一首的函数
-  changeCurrentTime, // seek
-  currentTrackSong, // 当前歌曲信息
-  addTrackAndPlay, // 添加并播放新的音轨
-  changePlayMode, // 修改当前的播放模式
-  playMode, // 修改当前的播放状态
-  PlayModes // 播放模式
-} = useMusicPlayer()
 
-provide('musicPlayer', {
-  isPlaying, // 当前是否在播放
-  currentTrackIndex, // 当前播放的曲目索引
-  currentTime, // 当前播放时间
-  duration, // 音乐总时长
-  play, // 控制播放的函数
-  pause, // 控制暂停的函数
-  nextTrack, // 播放下一首的函数
-  prevTrack, // 播放上一首的函数
-  changeCurrentTime, // seek
-  currentTrackSong, // 当前歌曲信息
-  addTrackAndPlay, // 添加并播放新的音轨
-  changePlayMode, // 修改当前的播放模式
-  playMode, // 修改当前的播放状态
-  PlayModes // 播放模式
-})
+provide('musicPlayer', useMusicPlayer())
 
 const isLogin = ref(getToken() || false)
 const form = ref()
