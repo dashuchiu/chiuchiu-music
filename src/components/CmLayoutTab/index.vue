@@ -1,39 +1,45 @@
 <script setup>
 import { ref } from 'vue'
-
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const active = ref(0)
 const tabs = ref([
   {
     name: 'video-o',
     path: '/video',
-    label: '影片'
+    label: 'common.video'
   },
   {
     name: 'wap-home-o',
     path: '/main',
-    label: '首頁'
+    label: 'common.home'
   },
   {
     name: 'list-switch',
     path: '/category',
-    label: '分類'
+    label: 'common.category'
   },
   {
     name: 'user-circle-o',
     path: '/user',
-    label: '我的'
+    label: 'common.user'
   }
 ])
 </script>
 <template>
-  <van-tabbar v-model="active" route active-color="#f97316">
+  <van-tabbar
+    v-model="active"
+    route
+    active-color="#f97316"
+    class="dark:bg-white dark:text-black"
+  >
     <van-tabbar-item
       replace
       v-for="tab in tabs"
       :key="tab.name"
       :to="tab.path"
       :icon="tab.name"
-      >{{ tab.label }}</van-tabbar-item
+      >{{ t(tab.label) }}</van-tabbar-item
     >
   </van-tabbar>
 </template>

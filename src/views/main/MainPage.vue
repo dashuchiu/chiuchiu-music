@@ -1,13 +1,17 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
 import { removeToken } from '@/utils/localStorage'
-import { defineExpose, ref } from 'vue'
+import { defineExpose, ref, inject } from 'vue'
 import { musicApi } from '@/api/module/music'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const router = useRouter()
 
+const handleLogout = inject('handleLogout')
 const logout = () => {
   removeToken()
+  handleLogout()
 }
 defineExpose({ logout })
 // TODO: token放store => 在登出的時候，會進到登入頁面
@@ -29,7 +33,7 @@ const getBanner = async () => {
 getBanner()
 </script>
 <template>
-  <cm-layout :leftText="'音痴草，今天想聽什麼'" :clickable="false">
+  <cm-layout :leftText="'音痴草，' + t('messages.welcome')" :clickable="false">
     <template #headerRight>
       <van-icon
         class="px-4"
@@ -44,7 +48,7 @@ getBanner()
         size="small"
         @click="logout"
       >
-        登出
+        {{ t('common.logout') }}
       </van-button>
     </template>
     <!-- 輪播圖 -->
@@ -53,7 +57,7 @@ getBanner()
         <img :src="item.pic" />
       </van-swipe-item>
     </van-swipe>
-    <h1 class="mt-6 text-3xl">推薦</h1>
+    <h1 class="mt-6 text-3xl">{{ t('common.recommend') }}</h1>
     <!-- 渲染8列歌單可拖曳 -->
     <div class="dragList overflow-x-scroll">
       <div class="drapContainer">

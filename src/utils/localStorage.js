@@ -19,3 +19,10 @@ export const getToken = () => {
 export const removeToken = () => {
   return localStorage.removeItem('Chiu-Token')
 }
+
+export const setHistoryList = (arr) => {
+  localStorage.setItem('History', JSON.stringify(arr))
+}
+export const getHistoryList = () => {
+  return JSON.parse(localStorage.getItem('History')) || []
+}

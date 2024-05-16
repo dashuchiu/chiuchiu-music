@@ -1,14 +1,36 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
 import UserSetPopup from './UserSetPopup.vue'
-import { ref } from 'vue'
+import { useUserStore } from '@/stores/module/user'
+import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { setLang } from '@/utils/localStorage'
+const { t, locale } = useI18n()
+const bgChecked = ref(false)
+const showPopover = ref(false)
+const userStore = useUserStore()
+const selectedText = ref('中文')
+const langs = ref([
+  { text: '中文', lang: 'zh-TW' },
+  { text: 'ENG', lang: 'en-US' }
+])
+// console.log(userStore)
 const show = ref(false)
 const showSetPopup = () => {
   show.value = true
 }
-const bgChecked = ref(false)
-const showPopover = ref(false)
-const actions = [{ text: '中文' }, { text: '英文' }]
+const handleChange = (bool) => {
+  userStore.setDarkTheme(bool)
+  bgChecked.value = bool
+}
+const onSelect = (langs) => {
+  locale.value = langs.lang
+  selectedText.value = langs.text
+}
+//切換語系
+watch(locale, (newlocale) => {
+  setLang(newlocale)
+})
 </script>
 <template>
   <cm-layout :is-search="true">
@@ -39,20 +61,21 @@ const actions = [{ text: '中文' }, { text: '英文' }]
     </div>
     <!-- 背景模式 -->
     <div class="flex justify-between items-center mt-4">
-      <h2>背景模式</h2>
-      <van-switch v-model="bgChecked" />
+      <h2>{{ t('common.mode') }}</h2>
+      <van-switch @change="handleChange" v-model="bgChecked" />
     </div>
     <!-- 語言切換 -->
     <div class="flex justify-between items-center mt-4">
-      <h2>語言</h2>
+      <h2>{{ t('common.lang') }}</h2>
       <van-popover
         placement="left"
         v-model:show="showPopover"
-        theme="dark"
-        :actions="actions"
+        :theme="userStore.darkTheme ? 'light' : 'dark'"
+        :actions="langs"
+        @select="onSelect"
       >
         <template #reference>
-          <van-button round type="default">中文</van-button>
+          <van-button round type="default">{{ selectedText }}</van-button>
         </template>
       </van-popover>
     </div>

@@ -16,4 +16,21 @@ DEMO:[chiuchiu-musicplayer](https://dashuchiu.github.io/demo2/#/main)
 + 隨機播放/單曲循環/「隨歌曲進度條播放」。
 + 動態歌詞(開發中)。     
       
-![img](./src/assets/img/readme_pic01.png)
+![img](./src/assets/img/demo_musicplayer.png)
+
+## i18n語言切換
+
+功能:  
++ 中英文切換。
+ 
+
+![img](./src/assets/img/langs.png)
+
+## 主題樣式
+
+功能:  
++ 設定明亮模式。
+ 
+
+![img](./src/assets/img/darkMode.png)
+

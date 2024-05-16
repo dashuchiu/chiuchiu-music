@@ -1,0 +1,45 @@
+{
+  "common": {
+    "login": "登入",
+    "logout": "登出",
+    "mode":"明亮模式",
+    "lang":"語言",
+    "video":"影片",
+    "home":"首頁",
+    "category":"分類",
+    "user":"我的",
+    "recommend":"推薦",
+    "phone":"手機號碼",
+    "sms":"驗證碼",
+    "send":"發送",
+    "send_again":"秒後重新發送",
+    "cate_artist":"歌手",
+    "cate_song":"歌曲",
+    "hot_song":"熱門歌曲",
+    "save":"儲存",
+    "nickname":"暱稱",
+    "search":"搜尋" ,
+    "search_history":"最近搜尋",
+    "expand":"展開",
+    "collapse":"收起"
+
+
+  },
+  "messages": {
+    "login_success": "登入成功",
+    "welcome": "今天想聽什麼",
+    "rule_number": "請輸入數字",
+    "rule_sms": "請輸入四位數驗證碼",
+    "only_jpg": "請上傳jpg圖片"
+  },
+  "placeholder": {
+    "phone_number": "請輸入手機號碼",
+    "sms_code": "請輸入簡訊驗證碼",
+    "enter_search": "請輸入歌曲或歌手名"
+  },
+  "musicplayer":{
+    "sequence": "順序播放",
+    "loop": "單曲循環",
+    "random": "隨機播放"
+  }
+}

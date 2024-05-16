@@ -5,6 +5,8 @@ import { ref, reactive, onMounted, inject, computed } from 'vue'
 import { musicApi } from '@/api/module/music'
 import { useMusicStore } from '@/stores'
 const { addTrackAndPlay } = inject('musicPlayer')
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 // const route = useRoute()
 // const id = ref(route.params.id)
 const musicStore = useMusicStore()
@@ -64,7 +66,7 @@ onMounted(() => {
       <p class="absolute bottom-5 left-5 text-3xl">{{ artistInfo.name }}</p>
     </div>
 
-    <p class="mt-4">熱門歌曲</p>
+    <p class="mt-4">{{ t('common.hot_song') }}</p>
     <div
       v-for="item in hotSongs"
       :key="item.id"

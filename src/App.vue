@@ -7,9 +7,12 @@ import { showSuccessToast } from 'vant'
 import { userApi } from '@/api/module/user'
 import { setToken, getToken } from '@/utils/localStorage'
 import { useMusicPlayer } from '@/hooks/useMusicPlayer'
-
+import { useUserStore } from '@/stores/module/user'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 provide('musicPlayer', useMusicPlayer())
 
+const userStore = useUserStore()
 const isLogin = ref(getToken() || false)
 const form = ref()
 const phone = ref('')
@@ -24,9 +27,13 @@ const login = async () => {
   if (token) {
     setToken(token)
     isLogin.value = true
-    showSuccessToast('登入成功')
+    showSuccessToast(t('messages.login_success'))
   }
 }
+//provide to MainPage控制登出
+provide('handleLogout', () => {
+  isLogin.value = false
+})
 
 const totalSecond = ref(60) // 总秒数
 const second = ref(60) // 倒计时的秒数
@@ -61,72 +68,89 @@ const rules = {
   phone: [
     {
       pattern: /^\d{10,13}$/,
-      message: '請輸入數字'
+      message: t('messages.rule_number')
     }
   ],
   sms: [
     {
       pattern: /^\w{4}$/,
-      message: '請輸入四位數驗證碼'
+      message: t('messages.rule_sms')
     }
   ]
 }
 </script>
 <template>
-  <!-- 背景底色 -->
-  <div class="h-full bg-stone-800">
-    <!-- 登入畫面 -->
-    <div v-if="!isLogin">
-      <div class="wrapper h-screen">
-        <cm-header :is-search="true" :forTitle="'登入'" />
-        <!-- 表單 -->
-        <div class="container p-6 mt-10">
-          <van-form @submit="login" ref="form">
-            <van-cell-group inset>
-              <van-field
-                v-model="phone"
-                name="phone"
-                required
-                clearable
-                label="手機號碼"
-                placeholder="請輸入手機號碼"
-                :rules="rules.phone"
-              />
-              <van-field
-                v-model="sms"
-                required
-                center
-                clearable
-                label="驗證碼"
-                placeholder="請輸入簡訊驗證碼"
-                :rules="rules.sms"
-              >
-                <template #button>
-                  <van-button @click="getCode" size="small" type="primary">
-                    {{
-                      second === totalSecond ? '發送' : second + `秒後重新發送`
-                    }}</van-button
+  <van-config-provider
+    :theme="userStore.darkTheme ? 'dark' : 'light'"
+    theme-vars-scope="global"
+  >
+    <div
+      :class="{
+        dark: userStore.darkTheme
+      }"
+    >
+      <div class="h-full bg-stone-800 text-white dark:bg-white dark:text-black">
+        <!-- 登入畫面 -->
+        <div v-if="!isLogin">
+          <div class="wrapper h-screen">
+            <cm-header :forTitle="t('common.login')" />
+            <!-- 表單 -->
+            <div class="container p-6 mt-10">
+              <van-form @submit="login" ref="form">
+                <van-cell-group inset>
+                  <van-field
+                    v-model="phone"
+                    name="phone"
+                    required
+                    clearable
+                    :label="t('common.phone')"
+                    :placeholder="t('placeholder.phone_number')"
+                    :rules="rules.phone"
+                  />
+                  <van-field
+                    v-model="sms"
+                    required
+                    center
+                    clearable
+                    :label="t('common.sms')"
+                    :placeholder="t('placeholder.sms_code')"
+                    :rules="rules.sms"
                   >
-                </template>
-              </van-field>
-            </van-cell-group>
-            <div style="margin: 16px">
-              <van-button round block type="primary" native-type="submit">
-                登入
-              </van-button>
+                    <template #button>
+                      <van-button @click="getCode" size="small" type="primary">
+                        {{
+                          second === totalSecond
+                            ? t('common.send')
+                            : second + t('common.send_again')
+                        }}</van-button
+                      >
+                    </template>
+                  </van-field>
+                </van-cell-group>
+                <div style="margin: 16px">
+                  <van-button round block type="primary" native-type="submit">
+                    {{ t('common.login') }}
+                  </van-button>
+                </div>
+              </van-form>
             </div>
-          </van-form>
+          </div>
+        </div>
+        <!-- 首頁畫面 -->
+        <div v-else>
+          <router-view></router-view>
         </div>
       </div>
     </div>
-    <!-- 首頁畫面 -->
-    <div v-else>
-      <router-view></router-view>
-    </div>
-  </div>
+  </van-config-provider>
+  <!-- 背景底色 -->
 </template>
 <style lang="scss" scoped>
-* {
-  color: white;
-}
+// * {
+//   color: white;
+// }
+// .van-theme-dark body {
+//   color: #dd1d1d;
+//   background-color: rgb(65, 168, 41);
+// }
 </style>

@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { auth } from '@/api/firebase.js'
-import { onAuthStateChanged } from 'firebase/auth'
 //用戶模塊 token setToken removeToken
 export const useUserStore = defineStore(
   'user',
   () => {
+    const darkTheme = ref(false)
     const token = ref('')
     const setToken = (newToken) => {
       token.value = newToken
@@ -13,25 +12,21 @@ export const useUserStore = defineStore(
     const removeToken = () => {
       token.value = ''
     }
-
-    const userInfo = ref({})
-    const getUser = async () => {
-      await onAuthStateChanged(auth, (user) => {
-        if (user) {
-          userInfo.value = user
-        }
-      })
+    const setDarkTheme = (bool) => {
+      darkTheme.value = bool
     }
+    const userInfo = ref({})
 
     const setUser = (obj) => {
       userInfo.value = obj
     }
     return {
+      darkTheme,
       token,
       setToken,
       removeToken,
+      setDarkTheme,
       userInfo,
-      getUser,
       setUser
     }
   },

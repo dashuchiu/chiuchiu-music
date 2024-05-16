@@ -1,6 +1,6 @@
 
 
-:root:root{//定義vant全局配色
+:root{//定義vant全局配色
   --van-primary-color:#ffffff;
   --van-text-color:#ffffff;
   --van-border-color:rgb(41 ,37 ,36);
@@ -11,11 +11,35 @@
   //按鈕
   --van-button-primary-background:#f97316;
   --van-button-primary-border-color:#f97316;
+  //輸入框文字
+  --van-field-input-text-color:rgb(255, 255, 255);
+  //搜索背景
+  .van-search__content{
+     --van-search-content-background:rgb(79, 79, 79);
+}
+  }
+ 
+:root:root{
   //展開文本
   --van-text-ellipsis-action-color:#f97316;
-  //搜索關鍵字
-  --van-field-input-text-color:rgb(41 ,37 ,36);
 
 }
+.van-theme-dark {
+  --van-primary-color:rgb(41 ,37 ,36);
+  --van-text-color:rgb(41 ,37 ,36);
+  --van-border-color:rgb(255, 255, 255);
+  --van-background-2:rgb(255, 255, 255);
+    //導航相關
+  --van-nav-bar-background:rgb(255, 255, 255);
+  --van-search-content-background:rgb(255, 255, 255);
+   //輸入框文字
+   --van-field-input-text-color:rgb(41 ,37 ,36);
+    //搜索背景
+  .van-search__content{
+    --van-search-content-background:rgb(236, 236, 236);
+}
+}
+
+
 
 $color: red  //定义单独样式  -> 页面中可以直接去使用  $color

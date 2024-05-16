@@ -1,12 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 import { showToast } from 'vant'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const fileList = ref([
   { url: 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg' }
 ])
 const beforeRead = (file) => {
   if (file.type !== 'image/jpeg') {
-    showToast('請上傳jpg圖片')
+    showToast(t('messages.only_jpg'))
     return false
   }
   return true
@@ -31,14 +33,14 @@ const onSubmit = (values) => {
       <van-field
         v-model="username"
         name="暱稱"
-        label="暱稱"
+        :label="t('common.nickname')"
         placeholder="音痴草"
         :rules="[{ required: false, message: '請填寫暱稱' }]"
       />
     </van-cell-group>
     <div style="margin: 16px">
       <van-button round block type="primary" native-type="submit">
-        儲存
+        {{ t('common.save') }}
       </van-button>
     </div>
   </van-form>

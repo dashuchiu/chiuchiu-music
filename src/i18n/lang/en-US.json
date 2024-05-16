@@ -1,0 +1,44 @@
+{
+  "common": {
+    "login": "Login",
+    "logout": "Logout",
+    "mode":"Light Mode",
+    "lang":"Language",
+    "video":"video",
+    "home":"home",
+    "category":"category",
+    "user":"user",
+    "recommend":"RECOMMEND",
+    "phone":"Phone",
+    "sms":"SMS Code",
+    "send":"send",
+    "send_again":"s resend",
+    "cate_artist":"artist",
+    "cate_song":"song",
+    "hot_song":"HOT",
+    "save":"save",
+    "nickname":"nickname", 
+    "search":"Search",
+    "search_history":"history",
+    "expand":"expand",
+    "collapse":"collapse"
+
+  },
+  "messages": {
+    "login_success": "Login Success",
+    "welcome": "Let's have some music!",
+    "rule_number": "enter number",
+    "rule_sms": "enter 4 sms code",
+    "only_jpg": "Only accept jpg format"
+  },
+  "placeholder": {
+    "phone_number": "phone number",
+    "sms_code": "enter code",
+    "enter_search": "enter song or artist"
+  },
+  "musicplayer":{
+    "sequence": "SEQUENCE",
+    "loop": "LOOP",
+    "random": "RANDOM"
+  }
+}

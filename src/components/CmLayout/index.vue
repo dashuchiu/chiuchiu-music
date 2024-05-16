@@ -38,22 +38,14 @@ onMounted(() => {
 // TODO: player 顯示的時候 => scrollableHeight 變短
 </script>
 <template>
-  <cm-header
-    :left-arrow="leftArrow"
-    :left-text="leftText"
-    :is-search="isSearch"
-    :clickable="clickable"
-    :for-title="forTitle"
-  >
+  <cm-header :left-arrow="leftArrow" :left-text="leftText" :is-search="isSearch" :clickable="clickable"
+    :for-title="forTitle">
     <template #right>
       <slot name="headerRight" />
     </template>
   </cm-header>
-  <main
-    id="scroll-wrapper"
-    class="px-6 pt-14 flex flex-col overflow-x-hidden overflow-y-scroll"
-    :style="{ height: `${scrollableHeight}px` }"
-  >
+  <main id="scroll-wrapper" class="px-6 pt-14 flex flex-col overflow-x-hidden overflow-y-scroll"
+    :style="{ height: `${scrollableHeight}px` }">
     <slot />
   </main>
   <footer id="footer">

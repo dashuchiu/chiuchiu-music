@@ -2,6 +2,7 @@ import { ref, computed, onUnmounted, reactive, onMounted, toRefs } from 'vue'
 import { useMusicStore } from '@/stores'
 import { showToast } from 'vant'
 import { musicApi } from '@/api/module/music'
+import { useI18n } from 'vue-i18n'
 
 export const useMusicPlayer = () => {
   // MusicStore
@@ -31,9 +32,9 @@ export const useMusicPlayer = () => {
   const currentTrackSong = computed(() => trackList[currentTrackIndex.value])
   // 播放模式
   const PlayModes = {
-    SEQUENCE: '順序播放',
-    LOOP: '單曲循環',
-    RANDOM: '隨機播放'
+    SEQUENCE: useI18n().t('musicplayer.sequence'),
+    LOOP: useI18n().t('musicplayer.loop'),
+    RANDOM: useI18n().t('musicplayer.random')
   }
   const playMode = ref(PlayModes.SEQUENCE)
   // 隨機播放的歌曲索引
