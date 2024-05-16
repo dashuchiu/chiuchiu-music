@@ -18,6 +18,14 @@ DEMO:[chiuchiu-musicplayer](https://dashuchiu.github.io/demo2/#/main)
       
 ![img](./src/assets/img/demo_musicplayer.png)
 
+## JWT登入
+
+功能:  
++ 校驗規則。
++ 登入成功訊息。     
+      
+![img](./src/assets/img/jwt.png)
+
 ## i18n語言切換
 
 功能:  
