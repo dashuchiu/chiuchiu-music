@@ -6,9 +6,9 @@ import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { setLang } from '@/utils/localStorage'
 const { t, locale } = useI18n()
-const bgChecked = ref(false)
-const showPopover = ref(false)
 const userStore = useUserStore()
+const bgChecked = ref(userStore.darkTheme)
+const showPopover = ref(false)
 const selectedText = ref('中文')
 const langs = ref([
   { text: '中文', lang: 'zh-TW' },
@@ -56,7 +56,7 @@ watch(locale, (newlocale) => {
         closeable
         close-icon="close"
       >
-        <UserSetPopup></UserSetPopup>
+        <UserSetPopup />
       </van-popup>
     </div>
     <!-- 背景模式 -->

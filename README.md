@@ -1,6 +1,6 @@
 # chiuchiu-musicplayer
 
-DEMO:[chiuchiu-musicplayer](https://dashuchiu.github.io/demo2/#/main)  
+DEMO:[chiuchiu-musicplayer](https://chiuchiu-music.onrender.com/#/main)  
 登入測試手機18681547948
 
 使用vue3、樣式框架為vant4開發的音樂播放器。

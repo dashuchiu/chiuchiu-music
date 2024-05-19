@@ -29,10 +29,8 @@ export const musicApi = {
   // 获取歌手专辑
   // artistAlbum: (id) => httpGet('/artist/album', { id }),
   // 歌手分类列表
-  artistList: ({ limit, offset, initial }) =>
-    httpGet(
-      `/artist/list?limit=${limit}&offset=${(offset - 1) * 30}&initial=${initial}`
-    ),
+  artistList: ({ limit, offset }) =>
+    httpGet(`/artist/list?limit=${limit}&offset=${(offset - 1) * 30}`),
   //歌單分類
   playlistCatList: () => httpGet('/playlist/catlist'),
   //歌單裡全部歌曲

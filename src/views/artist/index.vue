@@ -22,7 +22,6 @@ const artistInfo = ref({
   name: '',
   pic: ''
 })
-const isMusicPlayerShow = computed(() => musicStore.isMusicPlayerShow)
 
 function addMusic(item) {
   musicApi.urlV1(item.id).then(({ data }) => {
@@ -60,7 +59,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <cm-layout :leftArrow="true" :isShow="isMusicPlayerShow">
+  <cm-layout :leftArrow="true">
     <div class="relative">
       <van-image fit="cover" position="center" :src="artistInfo.pic" />
       <p class="absolute bottom-5 left-5 text-3xl">{{ artistInfo.name }}</p>

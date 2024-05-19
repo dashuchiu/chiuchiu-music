@@ -11,7 +11,7 @@ export const useMusicPlayer = () => {
   const state = reactive({ artistsList: {} })
   const { artistsList } = toRefs(state)
   onMounted(() => {
-    musicApi.artistList({ limit: 30, offset: 1, initial: 'l' }).then((res) => {
+    musicApi.artistList({ limit: 100, offset: 1 }).then((res) => {
       state.artistsList = res.artists
     })
     // musicApi.playlistCatList().then((res) => {
