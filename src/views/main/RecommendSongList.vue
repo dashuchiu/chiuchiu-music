@@ -1,14 +1,15 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
-import { ref, reactive, onMounted, inject, computed } from 'vue'
+import { ref, reactive, onMounted, inject } from 'vue'
 import { musicApi } from '@/api/module/music'
 import { useMusicStore } from '@/stores'
 import { useRoute } from 'vue-router'
 const routeId = useRoute().params.id
 const { addTrackAndPlay } = inject('musicPlayer')
 const musicStore = useMusicStore()
-
 const recommendListAll = ref([])
+
+//推薦歌單全部api
 const getRecommendMusicListAll = async () => {
   const data = await musicApi.playlistAll(routeId)
   recommendListAll.value = data.songs
@@ -28,7 +29,7 @@ const artistInfo = ref({
   name: '',
   pic: ''
 })
-const isMusicPlayerShow = computed(() => musicStore.isMusicPlayerShow)
+// const isMusicPlayerShow = computed(() => musicStore.isMusicPlayerShow)
 
 function addMusic(item) {
   musicApi.urlV1(item.id).then(({ data }) => {
@@ -55,7 +56,6 @@ const getArtistDetail = async () => {
   state.artistsDetail.artistDetail = data[1]
   state.artistsDetail.artists = data[2]
   hotSongs.value = state.artistsDetail.artists.hotSongs
-  // console.log(hotSongs.value)
   artistInfo.value.name = state.artistsDetail.artists.artist.name
   artistInfo.value.pic = state.artistsDetail.artists.artist.picUrl
 }

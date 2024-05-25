@@ -1,6 +1,6 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
-import { ref, reactive, onMounted, inject, computed } from 'vue'
+import { ref, reactive, onMounted, inject } from 'vue'
 // import { useRoute } from 'vue-router'
 import { musicApi } from '@/api/module/music'
 import { useMusicStore } from '@/stores'

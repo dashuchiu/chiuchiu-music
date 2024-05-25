@@ -22,13 +22,13 @@ export const useMusicPlayer = () => {
   const trackList = MusicStore.trackList
   // 是否正在播放
   const isPlaying = ref(false)
-  // 当前播放时间
+  // 當前播放时间
   const currentTime = ref(0)
-  // 歌曲总时长
+  // 歌曲總長
   const duration = ref(0)
-  // 当前播放曲目的索引
+  // 當前播放歌曲索引
   const currentTrackIndex = computed(() => MusicStore.currentIndex)
-  // 当前歌曲信息
+  // 當前歌曲資訊
   const currentTrackSong = computed(() => trackList[currentTrackIndex.value])
   // 播放模式
   const PlayModes = {
@@ -40,18 +40,18 @@ export const useMusicPlayer = () => {
   // 隨機播放的歌曲索引
   const getRandomIndex = (length, currentIndex) => {
     let randomIndex = Math.floor(Math.random() * length)
-    // 确保随机索引不等于当前索引，防止重复播放同一首歌
+    // 確保隨機不等於當前索引，防止重複播放
     while (randomIndex === currentIndex) {
       randomIndex = Math.floor(Math.random() * length)
     }
     return randomIndex
   }
-  // 更新当前播放时间的方法
+  // 更新當前播放方法
   const updateCurrentTime = () => {
     currentTime.value = audio.currentTime
   }
 
-  // 创建一个新的audio元素
+  // 創建新的audio元素
   const audio = new Audio()
   const loadTrack = (index) => {
     audio.src = trackList[index]?.source

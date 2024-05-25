@@ -14,7 +14,6 @@ const logout = () => {
   handleLogout()
 }
 defineExpose({ logout })
-// TODO: token放store => 在登出的時候，會進到登入頁面
 //推薦歌單api
 const recommendMusicList = ref([])
 const getRecommendMusicList = async () => {
