@@ -38,7 +38,7 @@ const setShowListPopup = (bool) => {
 
 <template>
   <div class="relative" v-show="isShow">
-    <div @click="setShowPopup(true)" class="fixed bottom-12 bg-slate-200">
+    <div class="fixed bottom-12 bg-slate-200">
       <!-- 進度條 -->
       <van-slider
         v-model="currentTime"
@@ -59,6 +59,7 @@ const setShowListPopup = (bool) => {
               size="18"
             />
             <van-image
+              @click="setShowPopup(true)"
               class="mx-2"
               width="3rem"
               height="3rem"

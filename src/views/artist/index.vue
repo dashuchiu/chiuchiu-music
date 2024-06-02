@@ -23,6 +23,30 @@ const artistInfo = ref({
   pic: ''
 })
 
+const getArtistDetail = async () => {
+  const data = await musicApi.artistDetail()
+  state.artistsDetail.artistAlbum = data[0]
+  state.artistsDetail.artistDetail = data[1]
+  state.artistsDetail.artists = data[2]
+  hotSongs.value = state.artistsDetail.artists.hotSongs
+  // console.log(hotSongs.value)
+  artistInfo.value.name = state.artistsDetail.artists.artist.name
+  artistInfo.value.pic = state.artistsDetail.artists.artist.picUrl
+  //拿當前頁面歌曲全部id去調api拿url存進store↓↓↓
+  // const ids = hotSongs.value.map((item) => item.id).join(',')
+  // const urlData = await musicApi.urlV1([ids])
+  // const urlList = await Promise.all(
+  //   hotSongs.value.map(async (item) => {
+  //     return {
+  //       id: item.id,
+  //       title: item.name,
+  //       source: await musicApi.urlV1(item.id).url
+  //     }
+  //   })
+  // )
+  // console.log(urlList)
+}
+
 function addMusic(item) {
   musicApi.urlV1(item.id).then(({ data }) => {
     console.log(data)
@@ -38,21 +62,10 @@ function addMusic(item) {
     }
     musicStore.addTrackAndPlay(param)
     musicStore.setIsMusicPlayerShow(true)
-    console.log(musicStore.isMusicPlayerShow)
     addTrackAndPlay()
   })
 }
-const getArtistDetail = async () => {
-  const data = await musicApi.artistDetail()
-  state.artistsDetail.artistAlbum = data[0]
-  state.artistsDetail.artistDetail = data[1]
-  state.artistsDetail.artists = data[2]
-  hotSongs.value = state.artistsDetail.artists.hotSongs
-  // console.log(hotSongs.value)
-  artistInfo.value.name = state.artistsDetail.artists.artist.name
-  artistInfo.value.pic = state.artistsDetail.artists.artist.picUrl
-}
-
+console.log(musicStore.trackList)
 onMounted(() => {
   // 首先获取歌手信息、歌手专辑
   getArtistDetail()

@@ -4,7 +4,7 @@ export const musicApi = {
   //每日推薦歌單
   recommendResource: () => httpGet('/recommend/resource'),
   //歌曲地址
-  urlV1: (id) => httpGet(`song/url/v1?id=${id}&level=exhigh`),
+  urlV1: (id) => httpGet(`song/url/v1?id=${id}&level=standard`),
   // 获取歌手详情
   artistDetail: async () => {
     const { data } = await server.get('/artistDetail')

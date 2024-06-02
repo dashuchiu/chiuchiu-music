@@ -31,7 +31,7 @@ const tabs = ref([
     v-model="active"
     route
     active-color="#f97316"
-    class="dark:bg-white dark:text-black"
+    class="bg-white dark:text-black"
   >
     <van-tabbar-item
       replace

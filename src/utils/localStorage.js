@@ -26,3 +26,17 @@ export const setHistoryList = (arr) => {
 export const getHistoryList = () => {
   return JSON.parse(localStorage.getItem('History')) || []
 }
+//使用者設定頁面暱稱
+export const getNickname = () => {
+  return localStorage.getItem('chiu-nickname') || ''
+}
+export const setNickname = (nickname) => {
+  return localStorage.setItem('chiu-nickname', nickname)
+}
+//推薦歌單清單
+export const setRecommendMusicList = (arr) => {
+  localStorage.setItem('RecommendMusicList', JSON.stringify(arr))
+}
+export const getRecommendMusicList = () => {
+  return JSON.parse(localStorage.getItem('RecommendMusicList')) || []
+}

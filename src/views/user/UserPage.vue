@@ -4,7 +4,7 @@ import UserSetPopup from './UserSetPopup.vue'
 import { useUserStore } from '@/stores/module/user'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { setLang } from '@/utils/localStorage'
+import { setLang, getNickname } from '@/utils/localStorage'
 const { t, locale } = useI18n()
 const userStore = useUserStore()
 const bgChecked = ref(userStore.darkTheme)
@@ -14,10 +14,12 @@ const langs = ref([
   { text: '中文', lang: 'zh-TW' },
   { text: 'ENG', lang: 'en-US' }
 ])
-// console.log(userStore)
+
+const nickName = ref(getNickname())
+
 const show = ref(false)
-const showSetPopup = () => {
-  show.value = true
+const showSetPopup = (bool) => {
+  show.value = bool
 }
 const handleChange = (bool) => {
   userStore.setDarkTheme(bool)
@@ -45,9 +47,9 @@ watch(locale, (newlocale) => {
           position="center"
           src="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg"
         />
-        <p class="ml-6">音痴草</p>
+        <p class="ml-6">{{ nickName }}</p>
       </div>
-      <van-icon @click="showSetPopup" name="setting-o" :size="28" />
+      <van-icon @click="showSetPopup(true)" name="setting-o" :size="28" />
       <van-popup
         v-model:show="show"
         position="right"
@@ -56,7 +58,7 @@ watch(locale, (newlocale) => {
         closeable
         close-icon="close"
       >
-        <UserSetPopup />
+        <UserSetPopup @save="showSetPopup(false)" />
       </van-popup>
     </div>
     <!-- 背景模式 -->

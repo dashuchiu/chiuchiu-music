@@ -1,6 +1,7 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
-import { ref, reactive, onMounted, inject } from 'vue'
+import { getRecommendMusicList } from '@/utils/localStorage'
+import { ref, reactive, onMounted, inject, computed } from 'vue'
 import { musicApi } from '@/api/module/music'
 import { useMusicStore } from '@/stores'
 import { useRoute } from 'vue-router'
@@ -8,6 +9,10 @@ const routeId = useRoute().params.id
 const { addTrackAndPlay } = inject('musicPlayer')
 const musicStore = useMusicStore()
 const recommendListAll = ref([])
+const recommendList = ref(getRecommendMusicList())
+const recommendCurrentList = computed(() =>
+  recommendList.value.find((item) => item.id === +routeId)
+)
 
 //推薦歌單全部api
 const getRecommendMusicListAll = async () => {
@@ -24,6 +29,7 @@ const state = reactive({
     artists: []
   }
 })
+
 const hotSongs = ref([])
 const artistInfo = ref({
   name: '',
@@ -33,7 +39,7 @@ const artistInfo = ref({
 
 function addMusic(item) {
   musicApi.urlV1(item.id).then(({ data }) => {
-    console.log(data)
+    // console.log(data)
     let param = {
       id: item.id,
       title: item.name,
@@ -46,7 +52,6 @@ function addMusic(item) {
     }
     musicStore.addTrackAndPlay(param)
     musicStore.setIsMusicPlayerShow(true)
-    console.log(musicStore.isMusicPlayerShow)
     addTrackAndPlay()
   })
 }
@@ -68,8 +73,14 @@ onMounted(() => {
 <template>
   <cm-layout :leftArrow="true">
     <div class="relative">
-      <van-image fit="cover" position="center" :src="artistInfo.pic" />
-      <p class="absolute bottom-5 left-5 text-3xl">{{ artistInfo.name }}</p>
+      <van-image
+        fit="cover"
+        position="center"
+        :src="recommendCurrentList.picUrl"
+      />
+      <p class="absolute bottom-5 left-5 text-3xl">
+        {{ recommendCurrentList.name }}
+      </p>
     </div>
 
     <p class="mt-4">推薦</p>

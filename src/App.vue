@@ -42,9 +42,9 @@ let timer = null // 定时器 id
 const getCode = async () => {
   try {
     await form.value.validate('phone')
-    const data = userApi.sentVerifyCode(phone)
+    // const data = await userApi.sentVerifyCode(phone)
+    const data = true
     if (data) {
-      console.log(data)
       sms.value = 1234
       if (!timer && second.value === totalSecond.value) {
         timer = setInterval(() => {
@@ -95,7 +95,7 @@ const rules = {
           <div class="wrapper h-screen">
             <cm-header :forTitle="t('common.login')" />
             <!-- 表單 -->
-            <div class="container p-6 mt-10">
+            <div class="container mx-auto p-6 mt-10">
               <van-form @submit="login" ref="form">
                 <van-cell-group inset>
                   <van-field
@@ -145,12 +145,4 @@ const rules = {
   </van-config-provider>
   <!-- 背景底色 -->
 </template>
-<style lang="scss" scoped>
-// * {
-//   color: white;
-// }
-// .van-theme-dark body {
-//   color: #dd1d1d;
-//   background-color: rgb(65, 168, 41);
-// }
-</style>
+<style lang="scss" scoped></style>

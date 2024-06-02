@@ -16,7 +16,7 @@
   //搜索背景
   .van-search__content{
      --van-search-content-background:rgb(79, 79, 79);
-}
+  }
   }
  
 :root:root{
@@ -37,7 +37,11 @@
     //搜索背景
   .van-search__content{
     --van-search-content-background:rgb(236, 236, 236);
-}
+  }
+  //tab背景
+  .van-tabbar-item{
+    background-color: rgb(222, 222, 222);
+  }
 }
 
 

@@ -1,6 +1,6 @@
 <script setup>
 import CmLayout from '@/components/CmLayout/index.vue'
-import { removeToken } from '@/utils/localStorage'
+import { removeToken, setRecommendMusicList } from '@/utils/localStorage'
 import { defineExpose, ref, inject } from 'vue'
 import { musicApi } from '@/api/module/music'
 import { useRouter } from 'vue-router'
@@ -20,6 +20,7 @@ const getRecommendMusicList = async () => {
   const data = await musicApi.recommendResource()
   recommendMusicList.value = data.recommend
   // console.log(data)
+  setRecommendMusicList(data.recommend)
 }
 getRecommendMusicList()
 

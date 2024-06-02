@@ -49,15 +49,7 @@ const onClickLeft = () => history.back()
 </template>
 <style lang="scss" scoped>
 .van-nav-bar--fixed {
-  width: auto;
-  left: calc((100% - 768px) / 2);
-  right: calc((100% - 768px) / 2);
-}
-
-@media (max-width: 768px) {
-  .van-nav-bar--fixed {
-    left: 0;
-    right: 0;
-  }
+  left: 0;
+  right: 0;
 }
 </style>
