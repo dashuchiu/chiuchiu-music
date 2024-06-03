@@ -4,7 +4,7 @@ import UserSetPopup from './UserSetPopup.vue'
 import { useUserStore } from '@/stores/module/user'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { setLang, getNickname } from '@/utils/localStorage'
+import { setLang, getUser } from '@/utils/localStorage'
 const { t, locale } = useI18n()
 const userStore = useUserStore()
 const bgChecked = ref(userStore.darkTheme)
@@ -14,12 +14,21 @@ const langs = ref([
   { text: '中文', lang: 'zh-TW' },
   { text: 'ENG', lang: 'en-US' }
 ])
-
-const nickName = ref(getNickname())
+const { nickname, image } = getUser()
+const nickName = ref(nickname)
 
 const show = ref(false)
+const userImage = ref(image)
 const showSetPopup = (bool) => {
   show.value = bool
+}
+const uploadImage = (image) => {
+  console.log(image);
+  userImage.value = image
+}
+const save = (name) => {
+  nickName.value = name
+  showSetPopup(false)
 }
 const handleChange = (bool) => {
   userStore.setDarkTheme(bool)
@@ -45,7 +54,7 @@ watch(locale, (newlocale) => {
           height="5rem"
           fit="cover"
           position="center"
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg"
+          :src="userImage"
         />
         <p class="ml-6">{{ nickName }}</p>
       </div>
@@ -58,7 +67,7 @@ watch(locale, (newlocale) => {
         closeable
         close-icon="close"
       >
-        <UserSetPopup @save="showSetPopup(false)" />
+        <UserSetPopup @save="save" @upload-image="uploadImage" />
       </van-popup>
     </div>
     <!-- 背景模式 -->

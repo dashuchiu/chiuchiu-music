@@ -2,15 +2,15 @@
 import { reactive, ref } from 'vue'
 import { showToast } from 'vant'
 import { useI18n } from 'vue-i18n'
-import { setNickname, getNickname } from '@/utils/localStorage'
+import { setUser, getUser } from '@/utils/localStorage'
 import { defineEmits } from 'vue'
 import { showSuccessToast } from 'vant'
 
 const { t } = useI18n()
-const emit = defineEmits('save')
-const fileList = ref([
-  { url: 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg' }
-])
+const emit = defineEmits('save', 'uploadImage')
+const { nickname, image } = getUser()
+const fileList = ref([{ url: image }])
+console.log(fileList);
 const beforeRead = (file) => {
   if (file.type !== 'image/jpeg') {
     showToast(t('messages.only_jpg'))
@@ -21,18 +21,19 @@ const beforeRead = (file) => {
 
 const user = reactive({
   name: 'nickname',
-  nickname: getNickname(),
-  imgUrl: ''
+  nickname,
+  imgUrl: image
 })
 const afterRead = (file) => {
   user.imgUrl = file.objectUrl
-  console.log(file.objectUrl)
+  setUser({ ...getUser(), image: file.objectUrl })
+  emit('uploadImage', file.objectUrl)
 }
 const onSubmit = ({ nickname }) => {
   user.nickname = nickname
-  setNickname(nickname)
+  setUser({ ...getUser(), nickname })
   showSuccessToast('儲存成功')
-  emit('save')
+  emit('save', nickname)
 }
 </script>
 <template>

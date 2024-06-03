@@ -61,6 +61,7 @@ function addMusic(item) {
       mv: item.mv
     }
     musicStore.addTrackAndPlay(param)
+    console.log(musicStore.trackList);
     musicStore.setIsMusicPlayerShow(true)
     addTrackAndPlay()
   })

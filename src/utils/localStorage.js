@@ -27,11 +27,11 @@ export const getHistoryList = () => {
   return JSON.parse(localStorage.getItem('History')) || []
 }
 //使用者設定頁面暱稱
-export const getNickname = () => {
-  return localStorage.getItem('chiu-nickname') || ''
+export const getUser = () => {
+  return JSON.parse(localStorage.getItem('chiu-user')) || ''
 }
-export const setNickname = (nickname) => {
-  return localStorage.setItem('chiu-nickname', nickname)
+export const setUser = (user) => { // { nickname: string, image: string }
+  return localStorage.setItem('chiu-user', JSON.stringify(user))
 }
 //推薦歌單清單
 export const setRecommendMusicList = (arr) => {
