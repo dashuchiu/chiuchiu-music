@@ -23,9 +23,9 @@ const trackList = computed(() => musicStore.trackList || [])
       <div class="songInfo flex flex-col">
         <div class="flex items-center">
           <div class="title">{{ track.title }}</div>
-          <span class="p-1 ml-2 border-stone-500 border-2 rounded-md">
+          <!-- <span class="p-1 ml-2 border-stone-500 border-2 rounded-md">
             <p class="text-xs text-stone-500">播放中</p>
-          </span>
+          </span> -->
         </div>
 
         <div class="artist text-sm text-stone-500">
