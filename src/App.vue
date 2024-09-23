@@ -23,7 +23,7 @@ const login = async () => {
   clearInterval(timer)
   timer = null
   second.value = totalSecond.value
-  const { token } = await userApi.login()
+  const { accessToken: token } = await userApi.login()
   if (token) {
     setToken(token)
     isLogin.value = true

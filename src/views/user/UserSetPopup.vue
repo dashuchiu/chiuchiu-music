@@ -9,8 +9,13 @@ import { showSuccessToast } from 'vant'
 const { t } = useI18n()
 const emit = defineEmits('save', 'uploadImage')
 const { nickname, image } = getUser()
-const fileList = ref([{ url: image }])
-console.log(fileList);
+const fileList = ref([
+  {
+    url: image || 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg',
+    isImage: true
+  }
+])
+console.log(fileList)
 const beforeRead = (file) => {
   if (file.type !== 'image/jpeg') {
     showToast(t('messages.only_jpg'))
@@ -28,9 +33,10 @@ const afterRead = (file) => {
   user.imgUrl = file.objectUrl
   setUser({ ...getUser(), image: file.objectUrl })
   emit('uploadImage', file.objectUrl)
+  console.log(file)
 }
 const onSubmit = ({ nickname }) => {
-  user.nickname = nickname
+  user.nickname = nickname || '音痴草'
   setUser({ ...getUser(), nickname })
   showSuccessToast('儲存成功')
   emit('save', nickname)

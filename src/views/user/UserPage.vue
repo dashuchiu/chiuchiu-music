@@ -18,12 +18,13 @@ const { nickname, image } = getUser()
 const nickName = ref(nickname)
 
 const show = ref(false)
-const userImage = ref(image)
+const userImage = ref(
+  image || 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg'
+)
 const showSetPopup = (bool) => {
   show.value = bool
 }
 const uploadImage = (image) => {
-  console.log(image);
   userImage.value = image
 }
 const save = (name) => {
